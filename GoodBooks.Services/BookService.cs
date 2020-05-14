@@ -2,7 +2,7 @@
 
 namespace GoodBooks.Services
 {
-    public class BookService : IBookService
+    public class BookService : IBookService     
     {
     }
 }
