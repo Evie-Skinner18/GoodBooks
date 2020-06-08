@@ -6,6 +6,15 @@ namespace GoodBooks.Services
 {
     public class BookService : IBookService
     {
+        private IBookDataReader _bookDataReader { get; set; }
+
+        private IBookDataWriter _bookDataWriter {get; set;}
+
+
+        public BookService()
+        {
+
+        }
         public void AddBook(Book bookToAdd)
         {
             throw new NotImplementedException();

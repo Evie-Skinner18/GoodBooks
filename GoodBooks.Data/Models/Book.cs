@@ -10,7 +10,7 @@ namespace GoodBooks.Data.Models
 
         public string Author { get; set; }
 
-        public BookReview Review { get; set; }
+       // public BookReview Review { get; set; }
 
         public DateTime CreatedOn { get; set; }
 
