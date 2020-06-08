@@ -8,6 +8,6 @@ namespace GoodBooks.Services.Writers
 
         public void UpdateBookInDb(int bookId);
 
-        public void DeleteBookFromDb(int bookId);
+        public void DeleteBookFromDb(Book bookToDelete);
     }
 }

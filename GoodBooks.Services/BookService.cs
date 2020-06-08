@@ -1,6 +1,9 @@
 ﻿using GoodBooks.Data.Models;
+using GoodBooks.Services.Readers;
+using GoodBooks.Services.Writers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GoodBooks.Services
 {
@@ -11,28 +14,49 @@ namespace GoodBooks.Services
         private IBookDataWriter _bookDataWriter {get; set;}
 
 
-        public BookService()
+        public BookService(IBookDataReader bookDataReader, IBookDataWriter bookDataWriter)
         {
-
+            _bookDataReader = bookDataReader;
+            _bookDataWriter = bookDataWriter;
         }
+
+        // do I jsut want to pass in an id instead and ahve reader find the book?
         public void AddBook(Book bookToAdd)
         {
-            throw new NotImplementedException();
+            if (bookToAdd != null)
+            {
+                _bookDataWriter.AddBookToDb(bookToAdd);
+            }
+            else
+            {
+                throw new InvalidOperationException("Can't add a book that doesn't exist!");
+            }
         }
 
         public void DeleteBook(int bookId)
         {
-            throw new NotImplementedException();
+            var bookToDelete = _bookDataReader.GetBookFromDbById(bookId);
+
+            if (bookToDelete != null)
+            {
+                _bookDataWriter.DeleteBookFromDb(bookToDelete);
+            }
+            else
+            {
+                throw new InvalidOperationException("Can't delete a book that doesn't exist!");
+            }
         }
 
         public List<Book> GetAllBooks()
         {
-            throw new NotImplementedException();
+            var allBooks = _bookDataReader.GetAllBooksFromDb().ToList();
+            return allBooks;
         }
 
-        public Book GetBookById(int id)
+        public Book GetBookById(int bookId)
         {
-            throw new NotImplementedException();
+            var bookWithGivenId = _bookDataReader.GetBookFromDbById(bookId);
+            return bookWithGivenId;
         }
     }
 }

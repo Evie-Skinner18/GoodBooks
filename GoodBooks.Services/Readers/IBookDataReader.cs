@@ -1,5 +1,6 @@
 ﻿using GoodBooks.Data.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GoodBooks.Services.Readers
 {
@@ -7,6 +8,6 @@ namespace GoodBooks.Services.Readers
     {
         IEnumerable<Book> GetAllBooksFromDb();
 
-        public Book GetBookFromDbById(int id);
+        public Book GetBookFromDbById(int bookId);
     }
 }

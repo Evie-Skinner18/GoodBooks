@@ -11,6 +11,6 @@ namespace GoodBooks.Services
 
         public List<Book> GetAllBooks();
 
-        public Book GetBookById(int id);
+        public Book GetBookById(int bookId);
     }
 }
