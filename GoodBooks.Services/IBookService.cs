@@ -5,7 +5,7 @@ namespace GoodBooks.Services
 {
     public interface IBookService
     {
-        public void AddBook(BookService bookToAdd);
+        public void AddBook(Book bookToAdd);
 
         public void DeleteBook(int bookId);
 
