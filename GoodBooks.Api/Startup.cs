@@ -7,6 +7,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using GoodBooks.Services;
+using GoodBooks.Services.Readers;
+using GoodBooks.Services.Writers;
 
 namespace GoodBooks.Api
 {
@@ -22,10 +25,11 @@ namespace GoodBooks.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // 'services' is the IOC container
             services.AddControllers();
 
             // set up dotenv to grab the env vars
-            DotEnv.Config();
+            DotEnv.Config(true, "../.env");
             var envReader = new EnvReader();
             var connectionString = envReader.GetStringValue("DEV_CONNECTION_STRING");
 
@@ -36,6 +40,12 @@ namespace GoodBooks.Api
                 options.EnableDetailedErrors();
                 options.UseNpgsql(connectionString);
             });
+
+            // register dependencies in the IOC container. When I ask for IBookService, please use the BookService implementation
+            // AddTransient means we want a simple, short-lived instance of a BookService when its behaviour is requested
+            services.AddTransient<IBookService, BookService>();
+            services.AddTransient<IBookDataReader, BookDataReader>();
+            services.AddTransient<IBookDataWriter, BookDataWriter>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +66,16 @@ namespace GoodBooks.Api
             {
                 endpoints.MapControllers();
             });
+
+
+            // our Vue front end will operate completely separately on a different host. For that reason we need to enable CORS to allow front end to consume API
+            // any client in the world can now make requests to our API. This is fine for now but in future we don't want anyone to be able to ping our IP address
+            // we will specify specific origins later on
+            app.UseCors(builder => builder 
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+           );
         }
     }
 }

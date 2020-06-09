@@ -8,3 +8,4 @@
 - XUnit
 - PostgreSQL
 - Vue
+- Makefile build commands
