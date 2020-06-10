@@ -22,6 +22,7 @@ namespace GoodBooks.Services.Writers
         {
             // the  service has had the reader go and find the book by id, and then checked if result is null. All this does is delete that book
             _dbContext.Remove(bookToDelete);
+            _dbContext.SaveChanges();
         }
 
         public void UpdateBookInDb(int bookId)

@@ -27,9 +27,21 @@ namespace GoodBooks.Api.Controllers
             return Ok(allBooks);
         }
 
+        [HttpGet("/api/books/{id}")]
+        public IActionResult GetBookById(int bookId)
+        {
+            var bookWithGivenId = _bookService.GetBookById(bookId);
+            return Ok(bookWithGivenId);
+        }
+
         [HttpPost("/api/books")]
         public IActionResult CreateBook([FromBody] CreateBookRequest bookRequest)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Not a valid book requst!");
+            }
+
             // turn book that's come through into an entity Book
             var newBook = new Book() 
             { 
@@ -44,5 +56,15 @@ namespace GoodBooks.Api.Controllers
 
             return Ok($"New book '{newBook.Title}' successfully added");
         }
+
+        [HttpDelete("/api/books/{id}")]
+        public IActionResult DeleteBook(int bookId)
+        {           
+            _bookService.DeleteBook(bookId);
+
+            return Ok($"Book '{bookId}' successfully deleted");
+        }
+
+        
     }
 }
