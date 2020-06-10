@@ -26,6 +26,7 @@ namespace GoodBooks.Api
         public void ConfigureServices(IServiceCollection services)
         {
             // 'services' is the IOC container
+            services.AddCors();
             services.AddControllers();
 
             // set up dotenv to grab the env vars
@@ -68,11 +69,10 @@ namespace GoodBooks.Api
             });
 
 
-            // our Vue front end will operate completely separately on a different host. For that reason we need to enable CORS to allow front end to consume API
-            // any client in the world can now make requests to our API. This is fine for now but in future we don't want anyone to be able to ping our IP address
-            // we will specify specific origins later on
+            // our Vue front end will operate completely separately on a different host. For that reason we need to enable CORS to allow front end to consume API from where it's hosted
+            // (Vue is on localh ost 8080) and no other client is allowed, for security
             app.UseCors(builder => builder 
-                .AllowAnyOrigin()
+                .WithOrigins("https://localhost:8080")
                 .AllowAnyMethod()
                 .AllowAnyHeader()
            );

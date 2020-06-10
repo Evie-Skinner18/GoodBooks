@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using GoodBooks.Api.RequestModels;
+using GoodBooks.Data.Models;
+using GoodBooks.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace GoodBooks.Api.Controllers
 {
@@ -7,16 +11,38 @@ namespace GoodBooks.Api.Controllers
     public class BooksController : ControllerBase
     {
         private readonly ILogger<BooksController> _logger;
+        private readonly IBookService _bookService;
 
-        public BooksController(ILogger<BooksController> logger)
+        public BooksController(ILogger<BooksController> logger, IBookService bookService)
         {
             _logger = logger;
+            // no need to new up a book service here as the IOC container takes care of doing it for us
+            _bookService = bookService;
         }
 
         [HttpGet("/api/books")]
         public IActionResult GetAllBooks()
         {
-            return Ok("bookies!");
+            var allBooks = _bookService.GetAllBooks();
+            return Ok(allBooks);
+        }
+
+        [HttpPost("/api/books")]
+        public IActionResult CreateBook([FromBody] CreateBookRequest bookRequest)
+        {
+            // turn book that's come through into an entity Book
+            var newBook = new Book() 
+            { 
+                Id = 1, 
+                Author = bookRequest.Author, 
+                Title = bookRequest.Title, 
+                CreatedOn = DateTime.Now,
+                UpdatedOn = DateTime.Now
+            };
+
+            _bookService.AddBook(newBook);
+
+            return Ok($"New book '{newBook.Title}' successfully added");
         }
     }
 }

@@ -15,5 +15,8 @@ migrations:
 db:
 	cd ./GoodBooks.Data && dotnet ef --startup-project ../GoodBooks.Api/ database update && cd ..
 
+app:
+	dotnet build && dotnet run --project ./GoodBooks.Api/GoodBooks.Api.csproj
+
 hello:
 	echo 'Hello from Makefile!'
