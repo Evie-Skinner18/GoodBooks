@@ -42,7 +42,8 @@ namespace GoodBooks.Api.Controllers
                 return BadRequest("Not a valid book requst!");
             }
 
-            // turn book that's come through into an entity Book
+            // turn book that's come through into an entity Book. In a future iteration you could make DTOs (service layer models/view models) that come in and use AutoMapper to map
+            // that DTO to an entity model
             var newBook = new Book() 
             { 
                 Author = bookRequest.Author, 

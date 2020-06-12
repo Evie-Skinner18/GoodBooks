@@ -20,7 +20,6 @@ namespace GoodBooks.Services
             _bookDataWriter = bookDataWriter;
         }
 
-        // do I jsut want to pass in an id instead and ahve reader find the book?
         public void AddBook(Book bookToAdd)
         {
             if (bookToAdd != null)
