@@ -4,19 +4,22 @@ PROJECT_NAME ?= GoodBooks
 
 
 # Names that we will attach to sequences of commands. We will be able to run them by using these names, e.g 'make migrations'
-.PHONY = migrations db
+.PHONY = migrations db api test
 
 
 
 # Commands required to run a migration and then apply it to the DB
 migrations:
-	cd ./GoodBooks.Data && dotnet ef --startup-project ../GoodBooks.Api/ migrations add ${migrationName} && cd ..
+	cd ./backend/GoodBooks.Data && dotnet ef --startup-project ../GoodBooks.Api/ migrations add ${migrationName} && cd ..
 
 db:
-	cd ./GoodBooks.Data && dotnet ef --startup-project ../GoodBooks.Api/ database update && cd ..
+	cd ./backend/GoodBooks.Data && dotnet ef --startup-project ../GoodBooks.Api/ database update && cd ..
 
-app:
-	dotnet build && dotnet run --project ./GoodBooks.Api/GoodBooks.Api.csproj
+api:
+	dotnet build && dotnet run --project ./backend/GoodBooks.Api/GoodBooks.Api.csproj
+
+test:
+	cd ./backend/ && dotnet test
 
 hello:
 	echo 'Hello from Makefile!'
