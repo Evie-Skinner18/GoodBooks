@@ -28,9 +28,9 @@ namespace GoodBooks.Api.Controllers
         }
 
         [HttpGet("/api/books/{id}")]
-        public IActionResult GetBookById(int bookId)
+        public IActionResult GetBookById(int id)
         {
-            var bookWithGivenId = _bookService.GetBookById(bookId);
+            var bookWithGivenId = _bookService.GetBookById(id);
             return Ok(bookWithGivenId);
         }
 
@@ -45,7 +45,6 @@ namespace GoodBooks.Api.Controllers
             // turn book that's come through into an entity Book
             var newBook = new Book() 
             { 
-                Id = 1, 
                 Author = bookRequest.Author, 
                 Title = bookRequest.Title, 
                 CreatedOn = DateTime.Now,
@@ -58,11 +57,11 @@ namespace GoodBooks.Api.Controllers
         }
 
         [HttpDelete("/api/books/{id}")]
-        public IActionResult DeleteBook(int bookId)
+        public IActionResult DeleteBook(int id)
         {           
-            _bookService.DeleteBook(bookId);
+            _bookService.DeleteBook(id);
 
-            return Ok($"Book '{bookId}' successfully deleted");
+            return Ok($"Book '{id}' successfully deleted");
         }
 
         

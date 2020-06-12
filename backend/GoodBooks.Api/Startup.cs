@@ -26,16 +26,23 @@ namespace GoodBooks.Api
         public void ConfigureServices(IServiceCollection services)
         {
             // 'services' is the IOC container
-            services.AddCors();
+            services.AddCors(options => options
+                .AddPolicy(name: "GoodBooksPolicy",
+                builder => builder
+                .WithOrigins("https://localhost:8080")
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials())
+                );
+
             services.AddControllers();
 
             // set up dotenv to grab the env vars
-            DotEnv.Config(true, "../.env");
+            DotEnv.Config(true, "../../.env");
             var envReader = new EnvReader();
             var connectionString = envReader.GetStringValue("DEV_CONNECTION_STRING");
 
             // set up Postgres
-            services.AddEntityFrameworkNpgsql();
             services.AddDbContext<GoodBooksDbContext>(options => 
             {
                 options.EnableDetailedErrors();
@@ -63,19 +70,17 @@ namespace GoodBooks.Api
 
             app.UseAuthorization();
 
+            // only allow certain clients to consume this service
+            app.UseCors("GoodBooksPolicy");
+
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllers()
+                .RequireCors("GoodBooksPolicy");
             });
 
 
-            // our Vue front end will operate completely separately on a different host. For that reason we need to enable CORS to allow front end to consume API from where it's hosted
-            // (Vue is on localh ost 8080) and no other client is allowed, for security
-            app.UseCors(builder => builder 
-                .WithOrigins("https://localhost:8080")
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-           );
+            app.UseHttpsRedirection();            
         }
     }
 }

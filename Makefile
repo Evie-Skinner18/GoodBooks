@@ -16,7 +16,7 @@ db:
 	cd ./backend/GoodBooks.Data && dotnet ef --startup-project ../GoodBooks.Api/ database update && cd ..
 
 api:
-	dotnet build && dotnet run --project ./backend/GoodBooks.Api/GoodBooks.Api.csproj
+	cd ./backend/ && dotnet build && dotnet run --project ./GoodBooks.Api/GoodBooks.Api.csproj
 
 test:
 	cd ./backend/ && dotnet test
