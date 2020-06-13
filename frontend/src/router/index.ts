@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../views/Home.vue'
+import Books from '../views/Books.vue'
 
 Vue.use(VueRouter)
 
@@ -13,11 +14,7 @@ Vue.use(VueRouter)
   {
     path: '/books',
     name: 'Books',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Books.vue')
-    //component: Books
+    component: Books
   }
 ]
 
