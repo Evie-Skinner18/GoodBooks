@@ -10,7 +10,6 @@ export default class BookService {
     BASE_URL = process.env.VUE_APP_API_URL;
 
     public async getAllBooks(): Promise<IBook[]> {
-        console.log(this.BASE_URL);
         let response = await axios.get(`${this.BASE_URL}/books/`);
         console.log(response);
         return response.data;
