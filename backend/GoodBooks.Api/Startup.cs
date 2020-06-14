@@ -29,7 +29,7 @@ namespace GoodBooks.Api
             services.AddCors(options => options
                 .AddPolicy(name: "GoodBooksPolicy",
                 builder => builder
-                .WithOrigins("https://localhost:8080")
+                .WithOrigins("http://localhost:8080")
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials())
@@ -78,7 +78,6 @@ namespace GoodBooks.Api
                 endpoints.MapControllers()
                 .RequireCors("GoodBooksPolicy");
             });
-
 
             app.UseHttpsRedirection();            
         }

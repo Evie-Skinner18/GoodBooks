@@ -1,4 +1,4 @@
-# GoodBooks
+# GoodBooks :book:
 
 ## A Full Stack ASP.Net Core Application
 
@@ -11,7 +11,6 @@
 
 - HTML
 - CSS
-- JavaScript
 - Vue
 
 - Git
