@@ -29,6 +29,7 @@
       deleteBook(id: number) {
           bookService.deleteBook(id);
           this.$emit('deleted');
+        //   window.location.reload(true);
       }
   }
 
