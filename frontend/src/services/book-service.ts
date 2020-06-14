@@ -11,7 +11,17 @@ export default class BookService {
 
     public async getAllBooks(): Promise<IBook[]> {
         let response = await axios.get(`${this.BASE_URL}/books/`);
-        console.log(response);
         return response.data;
     }
+
+    public async addNewBook(book: IBook) {
+        let response = await axios.post(`${this.BASE_URL}/books/`, book);
+        return response.data;
+    }
+
+    // [HttpDelete("/api/books/{id}")] and pass in relevant id
+    public async deleteBook(id: number) {
+        let response = await axios.delete(`${this.BASE_URL}/books/${id}`);
+        return response.data;
+    }    
 }

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../views/Home.vue'
 import Books from '../views/Books.vue'
+import AddBook from '../components/AddBook.vue'
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,11 @@ Vue.use(VueRouter)
     path: '/books',
     name: 'Books',
     component: Books
+  },
+  {
+    path: '/add',
+    name: 'AddBook',
+    component: AddBook
   }
 ]
 

@@ -1,14 +1,10 @@
 <template>
   <div class="books-container">
     <h1>My Books</h1>
-    <div v-show="myBooks.length">
-      <!-- <div v-for="book in myBooks" :key="book.id">
-        {{ book.title }} - {{ book.author }}
-      </div> -->
-      <!-- book is a prop being passed up to Books from Book component -->
-      <book :book="book" v-for="book in myBooks" :key="book.id">
-
-      </book>
+    <div v-show="myBooks.length">     
+      <!-- book is a prop being passed up to Books from Book component. when any books emits the 'deleted' event, it will re-request getAllBooks().
+        @deleted in parent component links with 'deleted' in child component -->
+      <book @deleted="getAllBooks" :book="book" v-for="book in myBooks" :key="book.id"></book>
     </div>
   </div>
 </template>
@@ -34,15 +30,17 @@
     get numberOfBooks(){
       return this.myBooks.length;
     }
-    // props
 
     // methods
+    getAllBooks() {
+      bookService.getAllBooks()
+              .then(response => this.myBooks = response)
+              .catch(error => console.error(error));
+    }
 
-    // lifecycle hooks
-    // created means before the component fully mounts
-    async created() {
-      //this.myBooks = await bookService.getAllBooks();
-        bookService.getAllBooks().then(response => this.myBooks = response); 
+    // 'created' lifecycle hook means do this before the component fully mounts
+    created() {
+      this.getAllBooks();
     }
 
   }
