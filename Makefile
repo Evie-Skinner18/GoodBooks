@@ -4,7 +4,7 @@ PROJECT_NAME ?= GoodBooks
 
 
 # Names that we will attach to sequences of commands. We will be able to run them by using these names, e.g 'make migrations'
-.PHONY = migrations db api test client
+.PHONY = migrations db api tests client
 
 
 
@@ -18,7 +18,7 @@ db:
 api:
 	cd ./backend/ && dotnet build && dotnet run --project ./GoodBooks.Api/GoodBooks.Api.csproj
 
-test:
+tests:
 	cd ./backend/ && dotnet test
 
 hello:
