@@ -14,8 +14,6 @@ namespace GoodBooks.Data.Models
 
         public string Author { get; set; }
 
-       // public BookReview Review { get; set; }
-
         public DateTime CreatedOn { get; set; }
 
         public DateTime UpdatedOn { get; set; }

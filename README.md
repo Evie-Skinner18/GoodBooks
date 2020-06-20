@@ -7,6 +7,7 @@
 - .Net Core CLI
 - Entity Framework Core
 - XUnit
+- Moq
 - PostgreSQL
 
 - HTML

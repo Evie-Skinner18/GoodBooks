@@ -24,10 +24,5 @@ namespace GoodBooks.Services.Writers
             _dbContext.Remove(bookToDelete);
             _dbContext.SaveChanges();
         }
-
-        public void UpdateBookInDb(int bookId)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

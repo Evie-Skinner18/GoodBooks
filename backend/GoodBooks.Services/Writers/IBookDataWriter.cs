@@ -6,8 +6,6 @@ namespace GoodBooks.Services.Writers
     {
         public void AddBookToDb(Book bookToAdd);
 
-        public void UpdateBookInDb(int bookId);
-
         public void DeleteBookFromDb(Book bookToDelete);
     }
 }
